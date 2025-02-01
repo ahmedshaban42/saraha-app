@@ -6,6 +6,7 @@ export const validationmiddleware=(Schema)=>{
 
 
         let validationError=[]
+        console.log(validationError)
 
 
         for(const key of schemakeys){
