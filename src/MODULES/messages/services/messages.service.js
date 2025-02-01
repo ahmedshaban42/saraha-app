@@ -3,13 +3,7 @@ import { messageModel } from "../../../DB/models/messages.model.js"
 
 export const  sendMessage=async(req,res)=>{
     const {body,ownerId}=req.body
-    if (ownerId.length !== 24) {
-        return res.status(409).json({message:'user id must be 24'}); 
-    }
 
-    if (!/^[A-Fa-f0-9]{24}$/.test(ownerId)) {
-        return res.status(409).json({message:'user id not valid'})
-    }
     const user=await usermodel.findById(ownerId)
     if(!user){
         return res.status(409).json({message:'can not find user'})

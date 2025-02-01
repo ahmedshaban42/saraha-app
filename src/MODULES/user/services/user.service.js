@@ -20,7 +20,7 @@ export const getuserdata=asyncHandler(
 }
 )
 export const updatepassword=async(req,res)=>{
-    try{
+
         const {_id}=req.loggedinuser
 
         const {oldPassword,newPasswoed,confirmPassword}=req.body
@@ -45,10 +45,7 @@ export const updatepassword=async(req,res)=>{
         await blacklistmodel.create( req.userToken)
 
         return res.status(200).json({message:'updateed password successfully '})
-    }catch(error){
-        console.log('internal error',error)
-        res.status(500).json({message:'internal error'})
-    }
+    
 
 
 }
@@ -57,7 +54,7 @@ export const updatepassword=async(req,res)=>{
 
 
 export const updateProfile=async(req,res)=>{
-    try{
+    
         const {_id}=req.loggedinuser
         const {username,phone,email,age}=req.body
         const user=await usermodel.findById(_id)
@@ -92,8 +89,5 @@ export const updateProfile=async(req,res)=>{
         await user.save()
         return res.status(200).json({message:'profile update susseccfully'})
 
-    }catch(error){
-        console.log('internal error',error)
-        res.status(500).json({message:'internal error'})
-    }
+    
 }

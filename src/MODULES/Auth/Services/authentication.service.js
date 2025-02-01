@@ -15,14 +15,7 @@ import { blacklistmodel } from '../../../DB/models/black_list_tokens_models.js';
 
 
 export const signUpService=async (req,res)=>{
-    try{
         const {username,password,confirmPassword,email,age,phone}=req.body
-
-
-        if(password!==confirmPassword){
-            return res.status(409).json({message:'passwoed and confirm password is not match'})
-        }
-
 
         const isEmailExist=await usermodel.findOne({email})
         if(isEmailExist){
@@ -60,15 +53,10 @@ export const signUpService=async (req,res)=>{
         
         return res.status(201).json({message:'crate susseccfuly',user})
 
-    }catch(error){
-        console.log('internal error',error)
-        res.status(500).json({message:'internal error'})
-    }
 }
 
 
 export const verifayEmail=async(req,res)=>{
-    try{
         const {token}=req.params
         const decoded=jwt.verify(token,process.env.JWT_SECRETKEY_EMAIL)
         const user=await usermodel.findOneAndUpdate({
@@ -84,17 +72,11 @@ export const verifayEmail=async(req,res)=>{
     
         res.status(200).json({message:'verifay Email successfully'})
 
-    }catch(error){
-        console.log('internal error',error)
-        res.status(500).json({message:'internal error'})
-    }
-
-
 }
 
 
 export const signInServise=async(req,res)=>{
-    try{
+
         const {email,password}=req.body
         const user=await usermodel.findOne({email})
         if(!user){
@@ -115,15 +97,11 @@ export const signInServise=async(req,res)=>{
             {expiresIn:`${process.env.JWT_REFRESH_TOKEN_EXP_LOGIN}`,jwtid:uuidv4()})    
 
         return res.status(200).json({message:'user login successfully',accesstoken,refreshtoken})
-    }catch(error){
-        console.log('internal error',error)
-        res.status(500).json({message:'internal error'})
-    }
 }
 
 
 export const refreshtoken=async(req,res)=>{
-    try{
+    
         const {refreshtoken}=req.headers
         const decodeddata=jwt.verify(refreshtoken,process.env.JWT_REFRESH_TOKEN_SECRETKEY_LOGIN)
         
@@ -136,16 +114,12 @@ export const refreshtoken=async(req,res)=>{
             process.env.JWT_ACCESS_TOKEN_SECRETKEY_LOGIN, 
             {expiresIn:`${process.env.JWT_ACCESS_TOKEN_EXP_LOGIN}`,jwtid:uuidv4()})
         return res.status(200).json({message:'access token is',accesstoken})
-    }catch(error){
-        console.log('internal error',error)
-        res.status(500).json({message:'internal error'})
-
-    }
+    
 }
 
 
 export const signOutServise=async(req,res)=>{
-    try{
+    
         const {accesstoken,refreshtoken}=req.headers
         console.log(accesstoken,refreshtoken)
 
@@ -163,18 +137,11 @@ export const signOutServise=async(req,res)=>{
             }
         ])
         res.status(200).json({message:'logout successfully'})
-
-
-    }catch(error){
-        console.log('internal error',error)
-        res.status(500).json({message:'internal error'})
-    }
-
 }
 
 
 export const forgetpassword=async(req,res)=>{
-    try{
+    
         const {email}=req.body
         const user=await usermodel.findOne({email})
         if(!user){
@@ -192,20 +159,13 @@ export const forgetpassword=async(req,res)=>{
         await user.save()
 
         res.status(200).json({message:'otp send seccessfuly'})
-    }catch(error){
-        console.log('internal error',error)
-        res.status(500).json({message:'internal error'})
-    }
+    
 
 }
 
 export const resetpasswoed=async(req,res)=>{
-    try{
-        const{email,otp,password,confirmPassword}=req.body
-    if(password!==confirmPassword){
-        return res.status(400).json({message:'password and confirm password not matched'})
-    }
 
+        const{email,otp,password,confirmPassword}=req.body
     const user=await usermodel.findOne({email})
     if(!user){
         return res.status(400).json({message:'user not found'})
@@ -221,9 +181,6 @@ export const resetpasswoed=async(req,res)=>{
     const hashpassword=hashSync(password,+process.env.SALT)
     await usermodel.updateOne({email},{password:hashpassword,$unset:{otp:""}})
     return res.status(200).json({message:'password reset successfully'})
-    }catch(error){
-        console.log('internal error',error)
-        res.status(500).json({message:'internal error'})
-    }
+    
 
 }
