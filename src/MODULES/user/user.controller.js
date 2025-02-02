@@ -20,7 +20,7 @@ user.get('/getuserbyemail',errorHandler(authenticationMiddleware()),
 user.patch('/update-password',
     errorHandler(authenticationMiddleware()),
     errorHandler(authorizationMiddleware([User])),
-    validationmiddleware(updatepasswordSchema),
+    errorHandler(validationmiddleware(updatepasswordSchema)),
     errorHandler(updatepassword))
 
 
@@ -29,7 +29,7 @@ user.patch('/update-password',
 user.put('/update-profile',
     errorHandler(authenticationMiddleware()),
     errorHandler(authorizationMiddleware([User])),
-    validationmiddleware(updateProfileSchema),
+    errorHandler(validationmiddleware(updateProfileSchema)),
     errorHandler(updateProfile))
 
 export default user

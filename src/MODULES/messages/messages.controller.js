@@ -10,7 +10,14 @@ import {authenticationMiddleware,authorizationMiddleware} from '../../Middleware
 
 
 
-message.post ('/send-message',validationmiddleware(sendMessageSchema),errorHandler(sendMessage))
-message.get ('/get-message',errorHandler(getmessages))
-message.get ('/get-user-message',errorHandler(authenticationMiddleware()),errorHandler(getusermessages))
+message.post ('/send-message',
+    errorHandler(validationmiddleware(sendMessageSchema)),
+    errorHandler(sendMessage))
+
+message.get ('/get-message',
+    errorHandler(getmessages))
+
+message.get ('/get-user-message',
+    errorHandler(authenticationMiddleware()),
+    errorHandler(getusermessages))
 export default message

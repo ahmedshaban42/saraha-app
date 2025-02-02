@@ -1,7 +1,7 @@
 
 
 export const validationmiddleware=(Schema)=>{
-    return (req,res,next)=>{
+    return async(req,res,next)=>{
         const schemakeys=Object.keys(Schema)
 
 
@@ -23,3 +23,5 @@ export const validationmiddleware=(Schema)=>{
 
     }
 } 
+
+

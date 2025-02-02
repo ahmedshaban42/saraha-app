@@ -11,17 +11,31 @@ import { signUpSchema,verifayEmailSchema,signInSchema,refreshtokenSchema,signOut
 const authcontroller =Router()
 
 
-authcontroller.post('/signup',validationmiddleware(signUpSchema),errorHandler(signUpService))
+authcontroller.post('/signup',
+    errorHandler(validationmiddleware(signUpSchema)),
+    errorHandler(signUpService))
 
-authcontroller.get('/verify/:token',validationmiddleware(verifayEmailSchema),errorHandler(verifayEmail))
+authcontroller.get('/verify/:token',
+    errorHandler(validationmiddleware(verifayEmailSchema)),
+    errorHandler(verifayEmail))
 
-authcontroller.post('/signin',validationmiddleware(signInSchema),errorHandler(signInServise))
+authcontroller.post('/signin',
+    errorHandler(validationmiddleware(signInSchema)),
+    errorHandler(signInServise))
 
-authcontroller.get('/refreshtoken',validationmiddleware(refreshtokenSchema),errorHandler(refreshtoken))
+authcontroller.get('/refreshtoken',
+    errorHandler(validationmiddleware(refreshtokenSchema)),
+    errorHandler(refreshtoken))
 
-authcontroller.post('/logout',validationmiddleware(signOutSchema),errorHandler(signOutServise))
+authcontroller.post('/logout',
+    errorHandler(validationmiddleware(signOutSchema)),
+    errorHandler(signOutServise))
 
-authcontroller.patch('/forgetpassword',validationmiddleware(forgetpasswordSchema),errorHandler(forgetpassword))
+authcontroller.patch('/forgetpassword',
+    errorHandler(validationmiddleware(forgetpasswordSchema)),
+    errorHandler(forgetpassword))
 
-authcontroller.patch('/resetpassword',validationmiddleware(resetpasswoedSchema),errorHandler(resetpasswoed))
+authcontroller.patch('/resetpassword',
+    errorHandler(validationmiddleware(resetpasswoedSchema)),
+    errorHandler(resetpasswoed))
 export default authcontroller
