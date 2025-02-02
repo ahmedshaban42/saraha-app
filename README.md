@@ -45,14 +45,3 @@ Saraha App is an anonymous messaging platform that allows users to send messages
    - You can use **Postman** to test the API endpoints.
    - If Swagger is implemented, open `http://localhost:5000/api-docs`.
 
- 📷 Screenshots (Optional)
-Add some screenshots here to showcase the app UI (if available).
-
- 🤝 Contribution
-Feel free to fork the repository and submit pull requests. Contributions are welcome!
-
- 📜 License
-This project is licensed under the MIT License.
-
----
-Made by Ahmed Shaban.
